@@ -1,22 +1,24 @@
 // Currently in the process of troubleshooting the code to get it
 // to stop breaking the circuit playground
 
-// Note: When the code breaks the Circuit Playground,
-// here are the steps to unbreak it:
-// 1) Unplug the Circuit Playground from your computer
-// 2) Close the Arduino IDE
-// 3) Plug in the Circuit Playground to your computer
-// 4) Open the Arduino IDE
-// 5) Open the Circuit Playground Example code in
-//    File > Examples > Examples from Custom Libraries
-//    > Arduino Circuit Playground > Hello_CircuitPlayground
-//    > Hello_LightSensor
-// 6) Compile the Hello_LightSensor Code
-// 7) Double press the reset button on the Circuit Playground
-//    to activate the "Bootloader" mode
-// 8) Quickly upload the Hello_LightSensor Code
-// 9) If the CircuitPlayground malfunctions, repeat
-//    steps 7 and 8 until the code successfully uploads
+/*
+ Note: When the code breaks the Circuit Playground,
+ here are the steps to unbreak it:
+ 1) Unplug the Circuit Playground from your computer
+ 2) Close the Arduino IDE
+ 3) Plug in the Circuit Playground to your computer
+ 4) Open the Arduino IDE
+ 5) Open the Circuit Playground Example code in
+    File > Examples > Examples from Custom Libraries
+    > Arduino Circuit Playground > Hello_CircuitPlayground
+    > Hello_LightSensor
+ 6) Compile the Hello_LightSensor Code
+ 7) Double press the reset button on the Circuit Playground
+    to activate the "Bootloader" mode
+ 8) Quickly upload the Hello_LightSensor Code
+ 9) If the CircuitPlayground malfunctions, repeat
+    steps 7 and 8 until the code successfully uploads
+*/
 
 //LIBRARIES--------------------------------------------------
 
@@ -154,8 +156,8 @@ void loop() {
   // print the derivative of the averaged light sensor value 
   // over time on the serial monitor and have it display as 
   // a variable on the serial plotter
-  // Serial.print("DerivativeLightSensorAverageValue:");
-  // Serial.println(derivative);
+   Serial.print("DerivativeLightSensorAverageValue:");
+   Serial.println(derivative);
 
   // if the derivative is 
   if (derivative > 0) {
@@ -241,7 +243,7 @@ void loop() {
   // calculated
   if (heart_rate == 0) {
     
-    Serial.print("Calculating Heart Rate...");
+    Serial.println("Calculating Heart Rate...");
    
   }
 
