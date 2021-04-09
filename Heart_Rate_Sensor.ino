@@ -5,7 +5,7 @@
 
 // define how many readings will be used in the moving average
 // filter
-#define num_readings 5
+#define num_readings 12
 
 //VARIABLES--------------------------------------------------
 
@@ -26,6 +26,25 @@ int readings[num_readings];
 // initialize the averaged value for the specified number 
 // of measurements for the moving average filter
 int averaged = 0;
+int past_averaged = 0;
+
+// initialize the current time value
+unsigned long current_time = 0;
+
+// intialize the counter for the pulses
+int pulse_count;
+
+// initialize the counter for the heart rate
+int heart_rate;
+int calculating_heart_rate;
+
+// initialize the start time counters
+unsigned long start_time;
+unsigned long derivative_start_time;
+
+// initialize the time counter for the time after a change in 
+// sign is detected (-) until the next one
+unsigned long time_after_derivative;
 
 //SETUP------------------------------------------------------
 void setup() {
@@ -46,6 +65,9 @@ void setup() {
   // light up the 0th NeoPixel with a green color
   //CircuitPlayground.setPixelColor(0, 0x00FF00);
 
+  // initialize the start time at the beginning
+  start_time = millis();
+
 }
 
 //FUNCTIONS--------------------------------------------------
@@ -59,11 +81,11 @@ void loop() {
 
   // print the light sensor value on the serial monitor
   // and have it display as a variable on the serial plotter
-  Serial.print("LightSensorValue:");
-  Serial.print(light_sensor_value);
-  Serial.print(",");
+  // Serial.print("LightSensorValue:");
+  // Serial.print(light_sensor_value);
+  // Serial.print(",");
 
-  // Moving Average Filter
+  // Moving Average Filter ---------------------------------
 
   // for each index, remove the oldest reading value to make 
   // room for a new reading value
@@ -87,10 +109,115 @@ void loop() {
 
   // print the averaged light sensor value on the serial monitor
   // and have it display as a variable on the serial plotter
-  Serial.print("LightSensorAverageValue:");
-  Serial.println(averaged);
+  // Serial.print("LightSensorAverageValue:");
+  // Serial.println(averaged);
 
+  // Derivative -------------------------------------------
+  unsigned long past_time = current_time;
+  // current_time = millis();
+
+  // Serial.print("CurrentTime:");
+  // Serial.println(current_time);
+
+  unsigned long time_interval = current_time - past_time;
+
+  // Serial.print("TimeInterval:");
+  // Serial.println(time_interval);
+  
+  int derivative = (averaged - past_averaged)/time_interval;
+  past_averaged = averaged;
+
+  // Serial.print("PastAveraged:");
+  // Serial.println(past_averaged);
+
+  // print the derivative of the averaged light sensor value 
+  // over time on the serial monitor and have it display as 
+  // a variable on the serial plotter
+  // Serial.print("DerivativeLightSensorAverageValue:");
+  // Serial.println(derivative);
+
+  // if the derivative is 
+  if (derivative > 0) {
+    // Serial.println("Increase");
+  }
+  if (derivative < 0) {
+    // Serial.println("Decrease");
+  }
+
+  // Serial.print("StartTime:");
+  // Serial.println(start_time);
+  // Serial.print("CurrentTime:");
+  // Serial.println(millis());
+  unsigned long interval_15_seconds = millis() - start_time;
+  // Serial.print("Interval15Seconds:");
+  // Serial.println(interval_15_seconds);
+  // Serial.print("TimeAfterDerivative:");
+  // Serial.println(time_after_derivative);
+
+  // check if the derivative is negative and if 
+  // the time after the derivative is greater than
+  // a threshold to ensure that multiple negative 
+  // derivatives occurring very close together
+  // for the same pulse signal will be read as just 
+  // one pulse
+  if (derivative < 0 && time_after_derivative > 500) {
+    derivative_start_time = millis();
+    pulse_count = pulse_count + 1;
+    // Serial.print("PulseCount:");
+    // Serial.println(pulse_count);
+    
+    // light up the 7th NeoPixel with a red color
+    // to show the pulse visually using LED flashes
+    CircuitPlayground.setPixelColor(7, 0xFF0000);
+    // delay the loop for 50 milliseconds
+    delay(25);  
+  }
+
+  // update the time after derivative variable
+  time_after_derivative = millis() - derivative_start_time;
+
+  // calculate the heart rate from the pulse counter
+  // where the pulse counter counts the number of pulses
+  // for 15 seconds, and the heart rate (in beats per minute)
+  // is the number of pulses*4 (since there are 60 seconds in
+  // one minute, and 60 seconds divided by 15 seconds is 
+  // 4 intervals)
+  if (interval_15_seconds < 15000) {
+    calculating_heart_rate = pulse_count*4;
+    // Serial.print("CalculatingHeartRate:");
+    // Serial.println(calculating_heart_rate);
+  }
+
+  // if it has passed 15 seconds of counting the pulses
+  // then reinitialize the counters to count the pulses
+  // for another 15 seconds
+  if (interval_15_seconds > 15000) {
+    // reinitialize the counter for the pulses,  
+    // 15 second interval, and start time
+    pulse_count = 0;
+    interval_15_seconds = 0;
+    start_time = millis();
+    // set the heart rate
+    heart_rate = calculating_heart_rate;
+  }
+  
   // delay the loop for 50 milliseconds
   delay(50);
+
+  // Notify the user that the heart rate is still being
+  // calculated
+  if (heart_rate == 0) {
+    Serial.print("Calculating Heart Rate...");
+  }
+
+  // Display the heart rate if a value has been calculated
+  if (heart_rate != 0) {
+    Serial.print("HeartRate:");
+    Serial.println(heart_rate);
+  }
+
+  // light up the 7th NeoPixel with a white color
+  // Note: Is there a way to make just the one NeoPixel turn off instead?
+  CircuitPlayground.setPixelColor(7, 0xFFFFFF);
   
 }
