@@ -1,26 +1,3 @@
-// Fixed the code to not break the Circuit Playground anymore!
-// The problem was the current_time variable was commented out
-// so there was a division by 0 that was breaking the device
-
-/*
- Note: When the code breaks the Circuit Playground,
- here are the steps to unbreak it:
- 1) Unplug the Circuit Playground from your computer
- 2) Close the Arduino IDE
- 3) Plug in the Circuit Playground to your computer
- 4) Open the Arduino IDE
- 5) Open the Circuit Playground Example code in
-    File > Examples > Examples from Custom Libraries
-    > Arduino Circuit Playground > Hello_CircuitPlayground
-    > Hello_LightSensor
- 6) Compile the Hello_LightSensor Code
- 7) Double press the reset button on the Circuit Playground
-    to activate the "Bootloader" mode
- 8) Quickly upload the Hello_LightSensor Code
- 9) If the CircuitPlayground malfunctions, repeat
-    steps 7 and 8 until the code successfully uploads
-*/
-
 //LIBRARIES--------------------------------------------------
 
 // include the Adafruit Circuit Playground library
@@ -159,7 +136,7 @@ void loop() {
   // over time on the serial monitor and have it display as 
   // a variable on the serial plotter
   // Serial.print("DerivativeLightSensorAverageValue:");
-   //Serial.println(derivative);
+  // Serial.println(derivative);
 
   // if the derivative is 
   if (derivative > 0) {
@@ -183,13 +160,13 @@ void loop() {
   // Serial.print("TimeAfterDerivative:");
   // Serial.println(time_after_derivative);
 
-  // check if the derivative is negative and if 
+  // check if the derivative is +/- and if 
   // the time after the derivative is greater than
-  // a threshold to ensure that multiple negative 
+  // a threshold to ensure that multiple +/- 
   // derivatives occurring very close together
   // for the same pulse signal will be read as just 
   // one pulse
-  if (derivative < 0 && time_after_derivative > 500) {
+  if (derivative != 0 && time_after_derivative > 500) {
     
     derivative_start_time = millis();
     pulse_count = pulse_count + 1;
