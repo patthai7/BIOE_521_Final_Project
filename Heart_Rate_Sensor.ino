@@ -1,6 +1,5 @@
-// Warning: Do NOT Upload this Code to Your Circuit Playground. 
-// Currently, it seems to be causing the Circuit Playground 
-// to malfunction and stop being able to be detected :(
+// Currently in the process of troubleshooting the code to get it
+// to stop breaking the circuit playground
 
 //LIBRARIES--------------------------------------------------
 
@@ -38,7 +37,8 @@ unsigned long current_time = 0;
 // intialize the counter for the pulses
 int pulse_count;
 
-// initialize the counter for the heart rate
+// initialize the counter for the heart rate and
+// calculating the heart rate
 int heart_rate;
 int calculating_heart_rate;
 
@@ -142,10 +142,14 @@ void loop() {
 
   // if the derivative is 
   if (derivative > 0) {
+    
     // Serial.println("Increase");
+    
   }
   if (derivative < 0) {
+    
     // Serial.println("Decrease");
+    
   }
 
   // Serial.print("StartTime:");
@@ -165,6 +169,7 @@ void loop() {
   // for the same pulse signal will be read as just 
   // one pulse
   if (derivative < 0 && time_after_derivative > 500) {
+    
     derivative_start_time = millis();
     pulse_count = pulse_count + 1;
     // Serial.print("PulseCount:");
@@ -175,7 +180,10 @@ void loop() {
     CircuitPlayground.setPixelColor(7, 0xFF0000);
     // delay the loop for 50 milliseconds
     delay(25);  
+    
   }
+
+/*
 
   // update the time after derivative variable
   time_after_derivative = millis() - derivative_start_time;
@@ -186,39 +194,54 @@ void loop() {
   // is the number of pulses*4 (since there are 60 seconds in
   // one minute, and 60 seconds divided by 15 seconds is 
   // 4 intervals)
-  if (interval_15_seconds < 15000) {
+
+*/
+
+/*  if (interval_15_seconds < 15000) {
+    
     calculating_heart_rate = pulse_count*4;
     // Serial.print("CalculatingHeartRate:");
     // Serial.println(calculating_heart_rate);
+    
   }
 
   // if it has passed 15 seconds of counting the pulses
   // then reinitialize the counters to count the pulses
   // for another 15 seconds
   if (interval_15_seconds > 15000) {
+    
     // reinitialize the counter for the pulses,  
     // 15 second interval, and start time
     pulse_count = 0;
     interval_15_seconds = 0;
     start_time = millis();
+    
     // set the heart rate
     heart_rate = calculating_heart_rate;
   }
-  
-  // delay the loop for 50 milliseconds
-  delay(50);
 
+*/
+
+/*
   // Notify the user that the heart rate is still being
   // calculated
   if (heart_rate == 0) {
+    
     Serial.print("Calculating Heart Rate...");
+   
   }
 
   // Display the heart rate if a value has been calculated
   if (heart_rate != 0) {
+    
     Serial.print("HeartRate:");
     Serial.println(heart_rate);
+    
   }
+*/ 
+
+  // delay the loop for 50 milliseconds
+  delay(50);
 
   // light up the 7th NeoPixel with a white color
   // Note: Is there a way to make just the one NeoPixel turn off instead?
