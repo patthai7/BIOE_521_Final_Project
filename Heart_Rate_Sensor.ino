@@ -181,11 +181,6 @@ void loop() {
     
   }
 
-  // Note: Looks like this portion of the code breaks
-  // the Circuit Playground :0 - or maybe not...
-  // It actually seems like the Serial Port display is
-  // the portion that - neverming it seems like this is the
-  // portion that is breaking it
   // update the time after derivative variable 
    time_after_derivative = millis() - derivative_start_time;
 
@@ -239,8 +234,7 @@ void loop() {
   // delay the loop for 50 milliseconds
   delay(50);
 
-  // light up the 7th NeoPixel with a white color
-  // Note: Is there a way to make just the one NeoPixel turn off instead?
-  CircuitPlayground.setPixelColor(7, 0xFFFFFF);
+  // light up the 7th NeoPixel with a black color (off)
+  CircuitPlayground.setPixelColor(7, 0x000000);
   
 }
