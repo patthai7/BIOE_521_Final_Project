@@ -1,3 +1,7 @@
+// Warning: Do NOT Upload this Code to Your Circuit Playground. 
+// Currently, it seems to be causing the Circuit Playground 
+// to malfunction and stop being able to be detected :(
+
 //LIBRARIES--------------------------------------------------
 
 // include the Adafruit Circuit Playground library
