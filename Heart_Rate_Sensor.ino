@@ -183,8 +183,8 @@ void loop() {
     
   }
 
-/*
-
+  // Note: Looks like this portion of the code breaks
+  // the Circuit Playground :0
   // update the time after derivative variable
   time_after_derivative = millis() - derivative_start_time;
 
@@ -195,7 +195,6 @@ void loop() {
   // one minute, and 60 seconds divided by 15 seconds is 
   // 4 intervals)
 
-*/
 
 /*  if (interval_15_seconds < 15000) {
     
