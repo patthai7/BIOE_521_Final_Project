@@ -1,6 +1,23 @@
 // Currently in the process of troubleshooting the code to get it
 // to stop breaking the circuit playground
 
+// Note: When the code breaks the Circuit Playground,
+// here are the steps to unbreak it:
+// 1) Unplug the Circuit Playground from your computer
+// 2) Close the Arduino IDE
+// 3) Plug in the Circuit Playground to your computer
+// 4) Open the Arduino IDE
+// 5) Open the Circuit Playground Example code in
+//    File > Examples > Examples from Custom Libraries
+//    > Arduino Circuit Playground > Hello_CircuitPlayground
+//    > Hello_LightSensor
+// 6) Compile the Hello_LightSensor Code
+// 7) Double press the reset button on the Circuit Playground
+//    to activate the "Bootloader" mode
+// 8) Quickly upload the Hello_LightSensor Code
+// 9) If the CircuitPlayground malfunctions, repeat
+//    steps 7 and 8 until the code successfully uploads
+
 //LIBRARIES--------------------------------------------------
 
 // include the Adafruit Circuit Playground library
@@ -183,10 +200,13 @@ void loop() {
     
   }
 
+/*
   // Note: Looks like this portion of the code breaks
   // the Circuit Playground :0
   // update the time after derivative variable
   time_after_derivative = millis() - derivative_start_time;
+
+*/
 
   // calculate the heart rate from the pulse counter
   // where the pulse counter counts the number of pulses
@@ -194,9 +214,7 @@ void loop() {
   // is the number of pulses*4 (since there are 60 seconds in
   // one minute, and 60 seconds divided by 15 seconds is 
   // 4 intervals)
-
-
-/*  if (interval_15_seconds < 15000) {
+  if (interval_15_seconds < 15000) {
     
     calculating_heart_rate = pulse_count*4;
     // Serial.print("CalculatingHeartRate:");
@@ -219,9 +237,6 @@ void loop() {
     heart_rate = calculating_heart_rate;
   }
 
-*/
-
-/*
   // Notify the user that the heart rate is still being
   // calculated
   if (heart_rate == 0) {
@@ -237,7 +252,7 @@ void loop() {
     Serial.println(heart_rate);
     
   }
-*/ 
+
 
   // delay the loop for 50 milliseconds
   delay(50);
