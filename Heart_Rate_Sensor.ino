@@ -156,8 +156,8 @@ void loop() {
   // print the derivative of the averaged light sensor value 
   // over time on the serial monitor and have it display as 
   // a variable on the serial plotter
-   Serial.print("DerivativeLightSensorAverageValue:");
-   Serial.println(derivative);
+  // Serial.print("DerivativeLightSensorAverageValue:");
+  // Serial.println(derivative);
 
   // if the derivative is 
   if (derivative > 0) {
@@ -178,8 +178,8 @@ void loop() {
   unsigned long interval_15_seconds = millis() - start_time;
   // Serial.print("Interval15Seconds:");
   // Serial.println(interval_15_seconds);
-  // Serial.print("TimeAfterDerivative:");
-  // Serial.println(time_after_derivative);
+   Serial.print("TimeAfterDerivative:");
+   Serial.println(time_after_derivative);
 
   // check if the derivative is negative and if 
   // the time after the derivative is greater than
@@ -202,13 +202,18 @@ void loop() {
     
   }
 
-/*
   // Note: Looks like this portion of the code breaks
-  // the Circuit Playground :0
-  // update the time after derivative variable
-  time_after_derivative = millis() - derivative_start_time;
+  // the Circuit Playground :0 - or maybe not...
+  // It actually seems like the Serial Port display is
+  // the portion that - neverming it seems like this is the
+  // portion that is breaking it
+  // update the time after derivative variable 
+  // time_after_derivative = millis() - derivative_start_time;
 
-*/
+  // Troubleshooting: It seems like just having the 
+  // time_after_derivative variable breaks the Circuit Playground
+  // even with it just simply adding 1
+   time_after_derivative = time_after_derivative + 1; 
 
   // calculate the heart rate from the pulse counter
   // where the pulse counter counts the number of pulses
@@ -219,8 +224,6 @@ void loop() {
   if (interval_15_seconds < 15000) {
     
     calculating_heart_rate = pulse_count*4;
-    // Serial.print("CalculatingHeartRate:");
-    // Serial.println(calculating_heart_rate);
     
   }
 
