@@ -1,5 +1,6 @@
-// Currently in the process of troubleshooting the code to get it
-// to stop breaking the circuit playground
+// Fixed the code to not break the Circuit Playground anymore!
+// The problem was the current_time variable was commented out
+// so there was a division by 0 that was breaking the device
 
 /*
  Note: When the code breaks the Circuit Playground,
@@ -59,7 +60,7 @@ int pulse_count;
 // initialize the counter for the heart rate and
 // calculating the heart rate
 int heart_rate;
-//int calculating_heart_rate;
+int calculating_heart_rate;
 
 // initialize the start time counters
 unsigned long start_time;
@@ -132,24 +133,23 @@ void loop() {
 
   // print the averaged light sensor value on the serial monitor
   // and have it display as a variable on the serial plotter
-   Serial.print("LightSensorAverageValue:");
-   Serial.println(averaged);
+  // Serial.print("LightSensorAverageValue:");
+  // Serial.println(averaged);
 
   // Derivative -------------------------------------------
   unsigned long past_time = current_time;
    current_time = millis();
 
-   Serial.print("CurrentTime:");
-   Serial.println(current_time);
+   //Serial.print("CurrentTime:");
+   //Serial.println(current_time);
 
   unsigned long time_interval = current_time - past_time;
 
-   Serial.print("TimeInterval:");
-   Serial.println(time_interval);
+   //Serial.print("TimeInterval:");
+   //Serial.println(time_interval);
   
   // int derivative = (averaged - past_averaged)/time_interval;
-  int derivative = (averaged - past_averaged);
-  // derivative = derivative/time_interval;
+  int derivative = (averaged - past_averaged)/time_interval;
   past_averaged = averaged;
 
   // Serial.print("PastAveraged:");
@@ -159,7 +159,7 @@ void loop() {
   // over time on the serial monitor and have it display as 
   // a variable on the serial plotter
   // Serial.print("DerivativeLightSensorAverageValue:");
-   Serial.println(derivative);
+   //Serial.println(derivative);
 
   // if the derivative is 
   if (derivative > 0) {
@@ -210,7 +210,7 @@ void loop() {
   // the portion that - neverming it seems like this is the
   // portion that is breaking it
   // update the time after derivative variable 
-  // time_after_derivative = millis() - derivative_start_time;
+   time_after_derivative = millis() - derivative_start_time;
 
   // calculate the heart rate from the pulse counter
   // where the pulse counter counts the number of pulses
@@ -220,7 +220,7 @@ void loop() {
   // 4 intervals)
   if (interval_15_seconds < 15000) {
     
-    heart_rate = pulse_count*4;
+    calculating_heart_rate = pulse_count*4;
     
   }
 
@@ -236,14 +236,13 @@ void loop() {
     start_time = millis();
     
     // set the heart rate
-    // heart_rate = calculating_heart_rate;
+     heart_rate = calculating_heart_rate;
     
   }
 
-  Serial.print("HeartRate:");
-  Serial.println(heart_rate);
+  //Serial.print("HeartRate:");
+  //Serial.println(heart_rate);
   
-/*
   // Notify the user that the heart rate is still being
   // calculated
   if (heart_rate == 0) {
@@ -259,7 +258,6 @@ void loop() {
     Serial.println(heart_rate);
     
   }
-*/
 
   // delay the loop for 50 milliseconds
   delay(50);
