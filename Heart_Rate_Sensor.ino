@@ -73,6 +73,33 @@ void setup() {
 
 //FUNCTIONS--------------------------------------------------
 
+int moving_average(int measurement_value) {
+
+  // for each index, remove the oldest reading value to make 
+  // room for a new reading value
+  sum = sum - readings[index];
+
+  // set the readings vector at the specified index to the
+  // light sensor value
+  readings[index] = measurement_value;
+
+  // add the newest light sensor value to the sum of the
+  // readings
+  sum = sum + measurement_value;
+
+  // go through the specified index values until it reaches 
+  // the maximum index value, then go back to the first index
+  // value of 0
+  index = (index + 1)%num_readings;
+
+  // take the average of the recorded readings
+  averaged = sum/num_readings;
+
+  return averaged;
+  
+}
+
+
 //LOOP-------------------------------------------------------
 void loop() {
 
@@ -86,27 +113,9 @@ void loop() {
   // Serial.print(light_sensor_value);
   // Serial.print(",");
 
-  // Moving Average Filter ---------------------------------
+  // Light Sensor Value Moving Average Filter ---------------------------------
 
-  // for each index, remove the oldest reading value to make 
-  // room for a new reading value
-  sum = sum - readings[index];
-
-  // set the readings vector at the specified index to the
-  // light sensor value
-  readings[index] = light_sensor_value;
-
-  // add the newest light sensor value to the sum of the
-  // readings
-  sum = sum + light_sensor_value;
-
-  // go through the specified index values until it reaches 
-  // the maximum index value, then go back to the first index
-  // value of 0
-  index = (index + 1)%num_readings;
-
-  // take the average of the recorded readings
-  averaged = sum/num_readings;
+  averaged = moving_average(light_sensor_value);
 
   // print the averaged light sensor value on the serial monitor
   // and have it display as a variable on the serial plotter
@@ -226,7 +235,7 @@ void loop() {
   // Display the heart rate if a value has been calculated
   if (heart_rate != 0) {
     
-    Serial.print("HeartRate:");
+    Serial.print("Heart Rate:");
     Serial.println(heart_rate);
     
   }
