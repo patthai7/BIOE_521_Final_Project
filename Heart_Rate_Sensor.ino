@@ -64,7 +64,7 @@ void setup() {
 
 
   // light up the 0th NeoPixel with a green color
-  //CircuitPlayground.setPixelColor(0, 0x00FF00);
+  // CircuitPlayground.setPixelColor(0, 0x00FF00);
 
   // initialize the start time at the beginning
   start_time = millis();
@@ -83,7 +83,7 @@ int moving_average(int measurement_value) {
   // light sensor value
   readings[index] = measurement_value;
 
-  // add the newest light sensor value to the sum of the
+  // add the newest measurement value to the sum of the
   // readings
   sum = sum + measurement_value;
 
@@ -163,9 +163,9 @@ void loop() {
   // Serial.println(start_time);
   // Serial.print("CurrentTime:");
   // Serial.println(millis());
-  unsigned long interval_15_seconds = millis() - start_time;
-  // Serial.print("Interval15Seconds:");
-  // Serial.println(interval_15_seconds);
+  unsigned long interval_5_seconds = millis() - start_time;
+  // Serial.print("Interval5Seconds:");
+  // Serial.println(interval_5_seconds);
   // Serial.print("TimeAfterDerivative:");
   // Serial.println(time_after_derivative);
 
@@ -195,25 +195,25 @@ void loop() {
 
   // calculate the heart rate from the pulse counter
   // where the pulse counter counts the number of pulses
-  // for 15 seconds, and the heart rate (in beats per minute)
-  // is the number of pulses*4 (since there are 60 seconds in
-  // one minute, and 60 seconds divided by 15 seconds is 
-  // 4 intervals)
-  if (interval_15_seconds < 15000) {
+  // for 5 seconds, and the heart rate (in beats per minute)
+  // is the number of pulses*12 (since there are 60 seconds in
+  // one minute, and 60 seconds divided by 5 seconds is 
+  // 12 intervals)
+  if (interval_5_seconds < 5000) {
     
-    calculating_heart_rate = pulse_count*4;
+    calculating_heart_rate = pulse_count*12;
     
   }
 
-  // if it has passed 15 seconds of counting the pulses
+  // if it has passed 5 seconds of counting the pulses
   // then reinitialize the counters to count the pulses
-  // for another 15 seconds
-  if (interval_15_seconds > 15000) {
+  // for another 5 seconds
+  if (interval_5_seconds > 15000) {
     
     // reinitialize the counter for the pulses,  
-    // 15 second interval, and start time
+    // 5 second interval, and start time
     pulse_count = 0;
-    interval_15_seconds = 0;
+    interval_5_seconds = 0;
     start_time = millis();
     
     // set the heart rate
