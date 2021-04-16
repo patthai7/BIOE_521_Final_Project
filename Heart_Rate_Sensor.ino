@@ -208,7 +208,7 @@ void loop() {
   // if it has passed 5 seconds of counting the pulses
   // then reinitialize the counters to count the pulses
   // for another 5 seconds
-  if (interval_5_seconds > 15000) {
+  if (interval_5_seconds > 5000) {
     
     // reinitialize the counter for the pulses,  
     // 5 second interval, and start time
@@ -244,6 +244,7 @@ void loop() {
   delay(50);
 
   // light up the 7th NeoPixel with a black color (off)
+  // to turn off the pulse LED when there is no pulse
   CircuitPlayground.setPixelColor(7, 0x000000);
   
 }
