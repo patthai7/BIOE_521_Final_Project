@@ -36,7 +36,7 @@ float pulse_count;
 
 // initialize the counter for the heart rate and
 // calculating the heart rate
-float heart_rate;
+int heart_rate;
 float calculating_heart_rate;
 
 // initialize the start time counters
@@ -199,24 +199,24 @@ void loop() {
   // calculate the heart rate for the given loop by dividing the
   // pulses by the time elapsed (milliseconds) and multiply by
   // 1000*60 to convert to heart beats per minute
-  heart_rate = pulse_count/heart_rate_time_counter;
+  calculating_heart_rate = pulse_count/heart_rate_time_counter;
 
   // Serial.print("Heart Rate:");
   // Serial.println(heart_rate);
   
-  heart_rate = heart_rate*1000*60;
+  calculating_heart_rate = calculating_heart_rate*1000*60;
 
   // add the 50 ms of delay that occurs with each loop
   heart_rate_time_counter = heart_rate_time_counter + 50;
 
-  Serial.print("PulseCount:");
-  Serial.println(pulse_count);
+  // Serial.print("PulseCount:");
+  // Serial.println(pulse_count);
 
-  Serial.print("HeartRateTimeCounter:");
-  Serial.println(heart_rate_time_counter);
+  // Serial.print("HeartRateTimeCounter:");
+  // Serial.println(heart_rate_time_counter);
 
   // Serial.print("Heart Rate:");
-  // Serial.println(heart_rate);
+  // Serial.println(calculating_heart_rate);
   
   // Notify the user that the heart rate is still being
   // calculated (15 seconds)
@@ -228,9 +228,13 @@ void loop() {
 
   // Display the heart rate if a value has been calculated
   if (heart_rate_time_counter > 15000) {
+
+    // turn the heart rate calculation float value into an int
+    heart_rate = calculating_heart_rate;
     
     Serial.print("Heart Rate:");
-    Serial.println(heart_rate);
+    Serial.print(heart_rate);
+    Serial.println(" BPM");
     
   }
 
