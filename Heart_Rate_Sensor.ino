@@ -223,6 +223,12 @@ void loop() {
   if (heart_rate_time_counter < 15000) {
     
     Serial.println("Calculating Heart Rate...");
+
+    // time left to wait for the calculation as an integer 
+    // in seconds (for a 15 second calculation
+    int calculation_time_left = 15 - heart_rate_time_counter/1000;
+    Serial.print(calculation_time_left);
+    Serial.println(" Seconds Remaining...");
    
   }
 
@@ -232,7 +238,7 @@ void loop() {
     // turn the heart rate calculation float value into an int
     heart_rate = calculating_heart_rate;
     
-    Serial.print("Heart Rate:");
+    Serial.print("Heart Rate: ");
     Serial.print(heart_rate);
     Serial.println(" BPM");
     
