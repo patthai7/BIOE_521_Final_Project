@@ -201,8 +201,8 @@ void loop() {
   // 1000*60 to convert to heart beats per minute
   heart_rate = pulse_count/heart_rate_time_counter;
 
-  Serial.print("Heart Rate:");
-  Serial.println(heart_rate);
+  // Serial.print("Heart Rate:");
+  // Serial.println(heart_rate);
   
   heart_rate = heart_rate*1000*60;
 
@@ -215,8 +215,8 @@ void loop() {
   Serial.print("HeartRateTimeCounter:");
   Serial.println(heart_rate_time_counter);
 
-  Serial.print("Heart Rate:");
-  Serial.println(heart_rate);
+  // Serial.print("Heart Rate:");
+  // Serial.println(heart_rate);
   
   // Notify the user that the heart rate is still being
   // calculated (15 seconds)
