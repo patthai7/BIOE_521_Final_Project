@@ -32,12 +32,12 @@ int past_averaged = 0;
 unsigned long current_time = 0;
 
 // intialize the counter for the pulses
-int pulse_count;
+float pulse_count;
 
 // initialize the counter for the heart rate and
 // calculating the heart rate
-int heart_rate;
-int calculating_heart_rate;
+float heart_rate;
+float calculating_heart_rate;
 
 // initialize the start time counters
 unsigned long start_time;
@@ -46,6 +46,9 @@ unsigned long derivative_start_time;
 // initialize the time counter for the time after a change in 
 // sign is detected (-) until the next one
 unsigned long time_after_derivative;
+
+// initialize the time counter for the heart rate calculation (milliseconds)
+float heart_rate_time_counter = 50;
 
 //SETUP------------------------------------------------------
 void setup() {
@@ -193,47 +196,38 @@ void loop() {
   // update the time after derivative variable 
    time_after_derivative = millis() - derivative_start_time;
 
-  // calculate the heart rate from the pulse counter
-  // where the pulse counter counts the number of pulses
-  // for 5 seconds, and the heart rate (in beats per minute)
-  // is the number of pulses*12 (since there are 60 seconds in
-  // one minute, and 60 seconds divided by 5 seconds is 
-  // 12 intervals)
-  if (interval_5_seconds < 5000) {
-    
-    calculating_heart_rate = pulse_count*12;
-    
-  }
+  // calculate the heart rate for the given loop by dividing the
+  // pulses by the time elapsed (milliseconds) and multiply by
+  // 1000*60 to convert to heart beats per minute
+  heart_rate = pulse_count/heart_rate_time_counter;
 
-  // if it has passed 5 seconds of counting the pulses
-  // then reinitialize the counters to count the pulses
-  // for another 5 seconds
-  if (interval_5_seconds > 5000) {
-    
-    // reinitialize the counter for the pulses,  
-    // 5 second interval, and start time
-    pulse_count = 0;
-    interval_5_seconds = 0;
-    start_time = millis();
-    
-    // set the heart rate
-     heart_rate = calculating_heart_rate;
-    
-  }
+  Serial.print("Heart Rate:");
+  Serial.println(heart_rate);
+  
+  heart_rate = heart_rate*1000*60;
 
-  //Serial.print("HeartRate:");
-  //Serial.println(heart_rate);
+  // add the 50 ms of delay that occurs with each loop
+  heart_rate_time_counter = heart_rate_time_counter + 50;
+
+  Serial.print("PulseCount:");
+  Serial.println(pulse_count);
+
+  Serial.print("HeartRateTimeCounter:");
+  Serial.println(heart_rate_time_counter);
+
+  Serial.print("Heart Rate:");
+  Serial.println(heart_rate);
   
   // Notify the user that the heart rate is still being
-  // calculated
-  if (heart_rate == 0) {
+  // calculated (15 seconds)
+  if (heart_rate_time_counter < 15000) {
     
     Serial.println("Calculating Heart Rate...");
    
   }
 
   // Display the heart rate if a value has been calculated
-  if (heart_rate != 0) {
+  if (heart_rate_time_counter > 15000) {
     
     Serial.print("Heart Rate:");
     Serial.println(heart_rate);
