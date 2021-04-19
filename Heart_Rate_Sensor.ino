@@ -38,6 +38,7 @@ float pulse_count;
 // calculating the heart rate
 int heart_rate;
 float calculating_heart_rate;
+float averaged_calculating_heart_rate;
 
 // initialize the start time counters
 unsigned long start_time;
@@ -86,14 +87,23 @@ int moving_average(int measurement_value) {
   // light sensor value
   readings[index] = measurement_value;
 
+  // Serial.print("Readings:");
+  // Serial.print(readings[index]);
+
   // add the newest measurement value to the sum of the
   // readings
   sum = sum + measurement_value;
+
+  // Serial.print("Sum:");
+  // Serial.print(sum);
 
   // go through the specified index values until it reaches 
   // the maximum index value, then go back to the first index
   // value of 0
   index = (index + 1)%num_readings;
+
+  // Serial.print("Index:");
+  // Serial.print(index);
 
   // take the average of the recorded readings
   averaged = sum/num_readings;
@@ -205,6 +215,12 @@ void loop() {
   // Serial.println(heart_rate);
   
   calculating_heart_rate = calculating_heart_rate*1000*60;
+  Serial.print("Calculate Heart Rate:");
+  Serial.println(calculating_heart_rate);
+
+  averaged_calculating_heart_rate = moving_average(calculating_heart_rate);
+  Serial.print("Average Calculate Heart Rate:");
+  Serial.println(averaged_calculating_heart_rate);
 
   // add the 50 ms of delay that occurs with each loop
   heart_rate_time_counter = heart_rate_time_counter + 50;
@@ -236,6 +252,7 @@ void loop() {
   if (heart_rate_time_counter > 15000) {
 
     // turn the heart rate calculation float value into an int
+    // heart_rate = averaged_calculating_heart_rate;
     heart_rate = calculating_heart_rate;
     
     Serial.print("Heart Rate: ");
