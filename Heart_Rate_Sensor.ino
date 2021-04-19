@@ -38,7 +38,6 @@ float pulse_count;
 // calculating the heart rate
 int heart_rate;
 float calculating_heart_rate;
-float averaged_calculating_heart_rate;
 
 // initialize the start time counters
 unsigned long start_time;
@@ -220,10 +219,6 @@ void loop() {
   Serial.print("Calculate Heart Rate:");
   Serial.println(calculating_heart_rate);
 
-  averaged_calculating_heart_rate = moving_average(calculating_heart_rate);
-  Serial.print("Average Calculate Heart Rate:");
-  Serial.println(averaged_calculating_heart_rate);
-
   // add the 50 ms of delay that occurs with each loop
   heart_rate_time_counter = heart_rate_time_counter + 50;
 
@@ -253,8 +248,6 @@ void loop() {
   // Display the heart rate if a value has been calculated
   if (heart_rate_time_counter > 15000) {
 
-    // turn the heart rate calculation float value into an int
-    // heart_rate = averaged_calculating_heart_rate;
     heart_rate = calculating_heart_rate;
     
     Serial.print("Heart Rate: ");
