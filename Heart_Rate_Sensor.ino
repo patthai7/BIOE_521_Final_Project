@@ -50,6 +50,10 @@ unsigned long time_after_derivative;
 // initialize the time counter for the heart rate calculation (milliseconds)
 float heart_rate_time_counter = 50;
 
+// initialize strings for the user input
+String age = "";
+String age_question_answer = "";
+
 //SETUP------------------------------------------------------
 void setup() {
 
@@ -116,6 +120,13 @@ int moving_average(int measurement_value) {
 
 //LOOP-------------------------------------------------------
 void loop() {
+
+  Serial.println("Would you like to see how your heart rate is compared to your age group? (Y/N)");
+  while (Serial.available() == 0) {}
+  age_question_answer = Serial.readString();
+  if (age_question_answer = "Y") {
+    Serial.println("yay");
+  }
 
   // read the value from the light sensor on the Adafruit
   // Circuit Playground
@@ -216,8 +227,8 @@ void loop() {
   // Serial.println(heart_rate);
   
   calculating_heart_rate = calculating_heart_rate*1000*60;
-  Serial.print("Calculate Heart Rate:");
-  Serial.println(calculating_heart_rate);
+  // Serial.print("Calculate Heart Rate:");
+  // Serial.println(calculating_heart_rate);
 
   // add the 50 ms of delay that occurs with each loop
   heart_rate_time_counter = heart_rate_time_counter + 50;
@@ -237,7 +248,7 @@ void loop() {
   
   // Notify the user that the heart rate is still being
   // calculated (15 seconds)
-  if (heart_rate_time_counter < 15000 && (calculating_heart_rate < 40 | calculating_heart_rate > 200)) {
+  if (heart_rate_time_counter < 15000) {
     
     Serial.println("Calculating Heart Rate...");
     
@@ -246,7 +257,7 @@ void loop() {
     int calculation_time_left = 15 - heart_rate_time_counter/1000;
     Serial.print(calculation_time_left);
     Serial.println(" Seconds Remaining...");
-
+    
   }
 
   // Notify the user that the heart rate is still being if the heart rate is out of the realistic range
