@@ -230,23 +230,35 @@ void loop() {
 
   // Serial.print("Heart Rate:");
   // Serial.println(calculating_heart_rate);
+
+  // Heart Rate Range 40 - 200 BPM
+  // Source: https://www.heart.org/en/healthy-living/fitness/fitness-basics/target-heart-rates
+  // if the heart rate is not within 40 - 200 BPM, then keep calculating
   
   // Notify the user that the heart rate is still being
   // calculated (15 seconds)
-  if (heart_rate_time_counter < 15000) {
+  if (heart_rate_time_counter < 15000 && (calculating_heart_rate < 40 | calculating_heart_rate > 200)) {
     
     Serial.println("Calculating Heart Rate...");
-
+    
     // time left to wait for the calculation as an integer 
     // in seconds (for a 15 second calculation
     int calculation_time_left = 15 - heart_rate_time_counter/1000;
     Serial.print(calculation_time_left);
     Serial.println(" Seconds Remaining...");
-   
+
+  }
+
+  // Notify the user that the heart rate is still being if the heart rate is out of the realistic range
+  if (heart_rate_time_counter > 15000 && (calculating_heart_rate < 40 | calculating_heart_rate > 200)) {
+
+    Serial.println("Heart Rate Seems Abnormal...");
+    Serial.println("Continuing to Calculate Heart Rate...");
+    
   }
 
   // Display the heart rate if a value has been calculated
-  if (heart_rate_time_counter > 15000) {
+  if (heart_rate_time_counter > 15000 && (calculating_heart_rate >= 40 | calculating_heart_rate <= 200)) {
 
     heart_rate = calculating_heart_rate;
     
