@@ -121,13 +121,18 @@ int moving_average(int measurement_value) {
 //LOOP-------------------------------------------------------
 void loop() {
 
-  Serial.println("Would you like to see how your heart rate is compared to your age group? (Y/N)");
-  while (Serial.available() == 0) {}
-  age_question_answer = Serial.readString();
-  if (age_question_answer = "Y") {
-    Serial.println("yay");
+  while (age_question_answer == "") {
+    Serial.println("Thank you for using the Pulse at the Palm of Your Hand Heart Rate Monitor!");
+    Serial.println("Would you like to see how your heart rate is compared to your age group? (Y/N)");
+    while (Serial.available() == 0) {
+      age_question_answer = Serial.readString();
+      if (age_question_answer == "Y") {
+        Serial.println("ok");
+      }
+    }
+  
   }
-
+  
   // read the value from the light sensor on the Adafruit
   // Circuit Playground
   light_sensor_value = CircuitPlayground.lightSensor();
