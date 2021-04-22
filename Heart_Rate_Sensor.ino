@@ -1,3 +1,4 @@
+
 //LIBRARIES--------------------------------------------------
 
 // include the Adafruit Circuit Playground library
@@ -5,7 +6,7 @@
 
 // define how many readings will be used in the moving average
 // filter
-#define num_readings 12
+#define num_readings 5
 
 //VARIABLES--------------------------------------------------
 
@@ -70,13 +71,29 @@ void setup() {
   CircuitPlayground.setPixelColor(0, 0xFF0000);
 
   // light up the 1st NeoPixel with a red color
-  CircuitPlayground.setPixelColor(1, 0xFF0000);
+  // CircuitPlayground.setPixelColor(1, 0xFF0000);
 
   // light up the 0th NeoPixel with a green color
   // CircuitPlayground.setPixelColor(0, 0x00FF00);
 
   // initialize the start time at the beginning
   start_time = millis();
+
+/*
+
+  while (age_question_answer == "") {
+    Serial.println("Thank you for using the Pulse at the Palm of Your Hand Heart Rate Monitor!");
+    Serial.println("Would you like to see how your heart rate is compared to your age group? (Y/N)");
+    while (Serial.available()) {
+      age_question_answer = Serial.readString();
+      if (age_question_answer == "Y") {
+        Serial.println("ok");
+      }
+    }
+  
+  }
+
+*/
 
 }
 
@@ -120,18 +137,6 @@ int moving_average(int measurement_value) {
 
 //LOOP-------------------------------------------------------
 void loop() {
-
-  while (age_question_answer == "") {
-    Serial.println("Thank you for using the Pulse at the Palm of Your Hand Heart Rate Monitor!");
-    Serial.println("Would you like to see how your heart rate is compared to your age group? (Y/N)");
-    while (Serial.available() == 0) {
-      age_question_answer = Serial.readString();
-      if (age_question_answer == "Y") {
-        Serial.println("ok");
-      }
-    }
-  
-  }
   
   // read the value from the light sensor on the Adafruit
   // Circuit Playground
@@ -214,7 +219,7 @@ void loop() {
     
     // light up the 7th NeoPixel with a red color
     // to show the pulse visually using LED flashes
-    CircuitPlayground.setPixelColor(7, 0xFF0000);
+     CircuitPlayground.setPixelColor(7, 0xFF0000);
     // delay the loop for 50 milliseconds
     delay(25);  
     
@@ -278,9 +283,10 @@ void loop() {
 
     heart_rate = calculating_heart_rate;
     
-    Serial.print("Heart Rate: ");
-    Serial.print(heart_rate);
-    Serial.println(" BPM");
+    //Serial.print("Heart Rate: ");
+    //Serial.print(heart_rate);
+    Serial.println(heart_rate);
+    //Serial.println(" BPM");
     
   }
 
