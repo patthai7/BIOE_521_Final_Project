@@ -131,7 +131,8 @@ void loop() {
     }
     age_question_response = Serial.read();
     Serial.println(age_question_response);
-    
+
+    // check is the response to the question is yes, y (121) or no, n (110)
     if (age_question_response == "121") {
       age_question_answered = true;
       Serial.println(age_question_response);
@@ -139,6 +140,15 @@ void loop() {
       }
 
     Serial.println(age_question_answered);
+
+    // if the answer is no, then continue with the heart rate calculation without
+    // the comparison of the heart rate to the user's age group
+    if (age_question_response == "110") {
+      age_question_answered = true;
+      Serial.println(age_question_response);
+      Serial.println(age_question_answered);
+      }
+    
   }
 
 
