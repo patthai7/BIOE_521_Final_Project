@@ -168,6 +168,8 @@ void loop() {
 
   // Light Sensor Value Moving Average Filter ---------------------------------
 
+  // use the moving average filter function to take moving averages of 
+  // the light sensor value and plot to smooth out the noise from the signal
   averaged = moving_average(light_sensor_value);
 
   // print the averaged light sensor value on the serial monitor
@@ -176,6 +178,11 @@ void loop() {
   // Serial.println(averaged);
 
   // Derivative -------------------------------------------
+
+  // calculate the derivative of the averaged light sensor values
+  // to determine if the values are increasing and decreasing
+  // which would indicate a pulse
+  
   unsigned long past_time = current_time;
    current_time = millis();
 
@@ -199,18 +206,6 @@ void loop() {
   // a variable on the serial plotter
   // Serial.print("DerivativeLightSensorAverageValue:");
   // Serial.println(derivative);
-
-  // if the derivative is 
-  if (derivative > 0) {
-    
-    // Serial.println("Increase");
-    
-  }
-  if (derivative < 0) {
-    
-    // Serial.println("Decrease");
-    
-  }
 
   // Serial.print("StartTime:");
   // Serial.println(start_time);
