@@ -79,7 +79,7 @@ void setup() {
   // initialize the start time at the beginning
   start_time = millis();
 
-  delay(1000);
+  delay(2000);
 
   Serial.println("Thank you for using the Pulse at the Palm of Your Hand Heart Rate Monitor!");
   Serial.println("What is your age (in years) so that we can calculate how your heart rate is");
