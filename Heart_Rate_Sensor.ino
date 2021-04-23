@@ -76,13 +76,21 @@ void setup() {
   // initialize the start time at the beginning
   start_time = millis();
 
+  // include a delay to give the serial monitor time to display the 
+  // serial prints below
   delay(2000);
 
+  // print an introductory message to the user
   Serial.println("Thank you for using the Pulse at the Palm of Your Hand Heart Rate Monitor!");
+  
+  // instructions to the user for finger placement for heart rate detection
   Serial.println("Please place your finger in the oval-shaped hole on the LED light.");  
   Serial.println("");  
-  Serial.println("What is your age (in years) so that we can calculate how your heart rate is");
-  Serial.println("compared to your age group?");
+  
+  // ask the user what their age is so that it can be used to determine their heart's 
+  // fitness level compared to their age group
+  Serial.println("What is your age (in years) so that we can calculate how your heart's fitness");
+  Serial.println("level is compared to your age group?");
  
 
 }
