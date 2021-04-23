@@ -160,22 +160,11 @@ void loop() {
   // Circuit Playground
   light_sensor_value = CircuitPlayground.lightSensor();
 
-  // print the light sensor value on the serial monitor
-  // and have it display as a variable on the serial plotter
-  // Serial.print("LightSensorValue:");
-  // Serial.print(light_sensor_value);
-  // Serial.print(",");
-
   // Light Sensor Value Moving Average Filter ---------------------------------
 
   // use the moving average filter function to take moving averages of 
   // the light sensor value and plot to smooth out the noise from the signal
   averaged = moving_average(light_sensor_value);
-
-  // print the averaged light sensor value on the serial monitor
-  // and have it display as a variable on the serial plotter
-  // Serial.print("LightSensorAverageValue:");
-  // Serial.println(averaged);
 
   // Derivative -------------------------------------------
 
@@ -198,24 +187,7 @@ void loop() {
   int derivative = (averaged - past_averaged)/time_interval;
   past_averaged = averaged;
 
-  // Serial.print("PastAveraged:");
-  // Serial.println(past_averaged);
-
-  // print the derivative of the averaged light sensor value 
-  // over time on the serial monitor and have it display as 
-  // a variable on the serial plotter
-  // Serial.print("DerivativeLightSensorAverageValue:");
-  // Serial.println(derivative);
-
-  // Serial.print("StartTime:");
-  // Serial.println(start_time);
-  // Serial.print("CurrentTime:");
-  // Serial.println(millis());
   unsigned long interval_5_seconds = millis() - start_time;
-  // Serial.print("Interval5Seconds:");
-  // Serial.println(interval_5_seconds);
-  // Serial.print("TimeAfterDerivative:");
-  // Serial.println(time_after_derivative);
 
   // check if the derivative is +/- and if 
   // the time after the derivative is greater than
@@ -227,12 +199,11 @@ void loop() {
     
     derivative_start_time = millis();
     pulse_count = pulse_count + 1;
-    // Serial.print("PulseCount:");
-    // Serial.println(pulse_count);
     
     // light up the 7th NeoPixel with a red color
     // to show the pulse visually using LED flashes
      CircuitPlayground.setPixelColor(7, 0xFF0000);
+     
     // delay the loop for 50 milliseconds
     delay(25);  
     
@@ -245,25 +216,11 @@ void loop() {
   // pulses by the time elapsed (milliseconds) and multiply by
   // 1000*60 to convert to heart beats per minute
   calculating_heart_rate = pulse_count/heart_rate_time_counter;
-
-  // Serial.print("Heart Rate:");
-  // Serial.println(heart_rate);
   
   calculating_heart_rate = calculating_heart_rate*1000*60;
-  // Serial.print("Calculate Heart Rate:");
-  // Serial.println(calculating_heart_rate);
 
   // add the 50 ms of delay that occurs with each loop
   heart_rate_time_counter = heart_rate_time_counter + 50;
-
-  // Serial.print("PulseCount:");
-  // Serial.println(pulse_count);
-
-  // Serial.print("HeartRateTimeCounter:");
-  // Serial.println(heart_rate_time_counter);
-
-  // Serial.print("Heart Rate:");
-  // Serial.println(calculating_heart_rate);
 
   // Notify the user that the heart rate is still being
   // calculated (15 seconds)
