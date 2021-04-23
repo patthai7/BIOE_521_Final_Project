@@ -79,6 +79,11 @@ void setup() {
   // initialize the start time at the beginning
   start_time = millis();
 
+
+ Serial.println("Thank you for using the Pulse at the Palm of Your Hand Heart Rate Monitor!");
+ Serial.println("What is your age so that we can calculate how your heart rate is compared to your age group?");
+ 
+
 }
 
 //FUNCTIONS--------------------------------------------------
@@ -124,16 +129,13 @@ void loop() {
 
   if (Serial.available() > 0 && age_question_answered == false) {
 
-     Serial.println("Thank you for using the Pulse at the Palm of Your Hand Heart Rate Monitor!");
-     Serial.println("What is your age so that we can calculate how your heart rate is compared to your age group?");
-
-
     if (age_question_answered == false && age == 0) {
-      
+
         age = Serial.parseInt();
         age_question_answered = true;
+        Serial.print("The age (in years) you inputted is: ");
         Serial.println(age);
-        Serial.println(age_question_answered);
+        //Serial.println(age_question_answered);
     }
     
   }
@@ -285,12 +287,176 @@ void loop() {
 
     heart_rate = calculating_heart_rate;
     
-    //Serial.print("Heart Rate: ");
-    //Serial.print(heart_rate);
-    Serial.println(heart_rate);
-    //Serial.println(" BPM");
+    Serial.print("Heart Rate: ");
+    Serial.print(heart_rate);
+    Serial.println(" BPM");
     
   }
+
+  // Display how the user's heart rate compares with their age group
+
+  if (age < 1) {
+    if (heart_rate < 80 || heart_rate > 160) {
+      Serial.print("Your heart rate is considered abnormal for your age group!");
+    }
+    if (heart_rate >= 80 || heart_rate <= 160) {
+      Serial.print("Your heart rate is considered normal for your age group!");
+    }
+  }
+
+  if (age >= 1 || age <= 2) {
+    if (heart_rate < 80 || heart_rate > 130) {
+      Serial.print("Your heart rate is considered abnormal for your age group!");
+    }
+    if (heart_rate >= 80 || heart_rate <= 130) {
+      Serial.print("Your heart rate is considered normal for your age group!");
+    }
+  }
+
+  if (age >= 3 || age <= 4) {
+    if (heart_rate < 80 || heart_rate > 120) {
+      Serial.print("Your heart rate is considered abnormal for your age group!");
+    }
+    if (heart_rate >= 80 || heart_rate <= 120) {
+      Serial.print("Your heart rate is considered normal for your age group!");
+    }
+  }
+  
+  if (age >= 5 || age <= 6) {
+    if (heart_rate < 75 || heart_rate > 115) {
+      Serial.print("Your heart rate is considered abnormal for your age group!");
+    }
+    if (heart_rate >= 75 || heart_rate <= 115) {
+      Serial.print("Your heart rate is considered normal for your age group!");
+    }
+  }
+
+  if (age >= 7 || age <= 9) {
+    if (heart_rate < 75 || heart_rate > 110) {
+      Serial.print("Your heart rate is considered abnormal for your age group!");
+    }
+    if (heart_rate >= 75 || heart_rate <= 110) {
+      Serial.print("Your heart rate is considered normal for your age group!");
+    }
+  }
+
+  if (age >= 10 || age <= 15) {
+    if (heart_rate < 60 || heart_rate > 100) {
+      Serial.print("Your heart rate is considered abnormal for your age group!");
+    }
+    if (heart_rate >= 60 || heart_rate <= 100) {
+      Serial.print("Your heart rate is considered normal for your age group!");
+    }
+  }
+  
+  if (age >= 18 || age <= 25) {
+    if (heart_rate >= 49 || heart_rate <= 60) {
+      Serial.print("You are considered an athelete for your age group!");
+    }
+    if (heart_rate >= 61 || heart_rate <= 65) {
+      Serial.print("Your heart rate is considered excellent for your age group!");
+    }
+    if (heart_rate >= 66 || heart_rate <= 73) {
+      Serial.print("Your heart rate is considered good for your age group!");
+    }
+    if (heart_rate >= 74 || heart_rate <= 84) {
+      Serial.print("Your heart rate is considered average for your age group!");
+    }
+    if (heart_rate >= 85) {
+      Serial.print("Your heart rate is considered below average for your age group!");
+    }
+  }
+
+  if (age >= 26 || age <= 35) {
+    if (heart_rate >= 49 || heart_rate <= 59) {
+      Serial.print("You are considered an athelete for your age group!");
+    }
+    if (heart_rate >= 60 || heart_rate <= 64) {
+      Serial.print("Your heart rate is considered excellent for your age group!");
+    }
+    if (heart_rate >= 65 || heart_rate <= 72) {
+      Serial.print("Your heart rate is considered good for your age group!");
+    }
+    if (heart_rate >= 73 || heart_rate <= 82) {
+      Serial.print("Your heart rate is considered average for your age group!");
+    }
+    if (heart_rate >= 83) {
+      Serial.print("Your heart rate is considered below average for your age group!");
+    }
+  }
+
+  if (age >= 36 || age <= 45) {
+    if (heart_rate >= 50 || heart_rate <= 59) {
+      Serial.print("You are considered an athelete for your age group!");
+    }
+    if (heart_rate >= 60 || heart_rate <= 64) {
+      Serial.print("Your heart rate is considered excellent for your age group!");
+    }
+    if (heart_rate >= 65 || heart_rate <= 73) {
+      Serial.print("Your heart rate is considered good for your age group!");
+    }
+    if (heart_rate >= 74 || heart_rate <= 84) {
+      Serial.print("Your heart rate is considered average for your age group!");
+    }
+    if (heart_rate >= 85) {
+      Serial.print("Your heart rate is considered below average for your age group!");
+    }
+  }
+
+  if (age >= 46 || age <= 55) {
+    if (heart_rate >= 50 || heart_rate <= 60) {
+      Serial.print("You are considered an athelete for your age group!");
+    }
+    if (heart_rate >= 61 || heart_rate <= 65) {
+      Serial.print("Your heart rate is considered excellent for your age group!");
+    }
+    if (heart_rate >= 66 || heart_rate <= 73) {
+      Serial.print("Your heart rate is considered good for your age group!");
+    }
+    if (heart_rate >= 74 || heart_rate <= 83) {
+      Serial.print("Your heart rate is considered average for your age group!");
+    }
+    if (heart_rate >= 84) {
+      Serial.print("Your heart rate is considered below average for your age group!");
+    }
+  }
+
+  if (age >= 56 || age <= 65) {
+    if (heart_rate >= 51 || heart_rate <= 59) {
+      Serial.print("You are considered an athelete for your age group!");
+    }
+    if (heart_rate >= 60 || heart_rate <= 64) {
+      Serial.print("Your heart rate is considered excellent for your age group!");
+    }
+    if (heart_rate >= 65 || heart_rate <= 73) {
+      Serial.print("Your heart rate is considered good for your age group!");
+    }
+    if (heart_rate >= 74 || heart_rate <= 83) {
+      Serial.print("Your heart rate is considered average for your age group!");
+    }
+    if (heart_rate >= 84) {
+      Serial.print("Your heart rate is considered below average for your age group!");
+    }
+  }
+
+  if (age > 65) {
+    if (heart_rate >= 50 || heart_rate <= 59) {
+      Serial.print("You are considered an athelete for your age group!");
+    }
+    if (heart_rate >= 60 || heart_rate <= 64) {
+      Serial.print("Your heart rate is considered excellent for your age group!");
+    }
+    if (heart_rate >= 65 || heart_rate <= 72) {
+      Serial.print("Your heart rate is considered good for your age group!");
+    }
+    if (heart_rate >= 73 || heart_rate <= 83) {
+      Serial.print("Your heart rate is considered average for your age group!");
+    }
+    if (heart_rate >= 84) {
+      Serial.print("Your heart rate is considered below average for your age group!");
+    }
+  }
+
 
   // delay the loop for 50 milliseconds
   delay(50);
