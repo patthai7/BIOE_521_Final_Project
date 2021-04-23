@@ -257,10 +257,6 @@ void loop() {
   // Serial.print("Heart Rate:");
   // Serial.println(calculating_heart_rate);
 
-  // Heart Rate Range 40 - 200 BPM
-  // Source: https://www.heart.org/en/healthy-living/fitness/fitness-basics/target-heart-rates
-  // if the heart rate is not within 40 - 200 BPM, then keep calculating
-  
   // Notify the user that the heart rate is still being
   // calculated (15 seconds)
   if (heart_rate_time_counter < 15000) {
@@ -275,6 +271,11 @@ void loop() {
     
   }
 
+  // Typical Heart Rate Range: 40 - 200 BPM
+  // Source: American Heart Association
+  // https://www.heart.org/en/healthy-living/fitness/fitness-basics/target-heart-rates
+  // If the heart rate is not within 40 - 200 BPM, then keep calculating
+  
   // Notify the user that the heart rate is still being if the heart rate is out of the realistic range
   if (heart_rate_time_counter > 15000 && (calculating_heart_rate < 40 | calculating_heart_rate > 200)) {
 
@@ -292,8 +293,8 @@ void loop() {
     Serial.print(heart_rate);
     Serial.println(" BPM");
 
-   // Display how the user's heart rate compares with their age group
-  
+   // Display how the user's heart fitness level (based on their heart rate)
+   // compares with their age group
     if (age < 1) {
       if (heart_rate < 80 && heart_rate > 160) {
         Serial.println("Your heart's fitness level is considered abnormal for your age group!");
@@ -458,8 +459,6 @@ void loop() {
 
     
   }
-
- 
 
   // delay the loop for 50 milliseconds
   delay(50);
