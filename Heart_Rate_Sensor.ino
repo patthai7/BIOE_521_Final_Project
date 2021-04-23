@@ -52,8 +52,7 @@ unsigned long time_after_derivative;
 float heart_rate_time_counter = 50;
 
 // initialize age variables for the user input
-int age;
-String age_question_response;
+int age = 0;
 boolean age_question_answered;
 
 //SETUP------------------------------------------------------
@@ -125,35 +124,21 @@ void loop() {
 
   if (Serial.available() > 0 && age_question_answered == false) {
 
-    if (age_question_answered == false) {
      Serial.println("Thank you for using the Pulse at the Palm of Your Hand Heart Rate Monitor!");
-     Serial.println("Would you like to see how your heart rate is compared to your age group? (y/n)");
+     Serial.println("What is your age so that we can calculate how your heart rate is compared to your age group?");
+
+
+    if (age_question_answered == false && age == 0) {
+      
+        age = Serial.parseInt();
+        age_question_answered = true;
+        Serial.println(age);
+        Serial.println(age_question_answered);
     }
-    age_question_response = Serial.read();
-    Serial.println(age_question_response);
-
-    // check is the response to the question is yes, y (121) or no, n (110)
-    if (age_question_response == "121") {
-      age_question_answered = true;
-      Serial.println(age_question_response);
-      Serial.println(age_question_answered);
-      }
-
-    Serial.println(age_question_answered);
-
-    // if the answer is no, then continue with the heart rate calculation without
-    // the comparison of the heart rate to the user's age group
-    if (age_question_response == "110") {
-      age_question_answered = true;
-      Serial.println(age_question_response);
-      Serial.println(age_question_answered);
-      }
     
   }
 
-
-
-  if (age_question_answered == true) {
+  if (age_question_answered == true && age != 0) {
   
   // read the value from the light sensor on the Adafruit
   // Circuit Playground
