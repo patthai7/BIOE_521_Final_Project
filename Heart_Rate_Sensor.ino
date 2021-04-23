@@ -82,7 +82,8 @@ void setup() {
   delay(1000);
 
   Serial.println("Thank you for using the Pulse at the Palm of Your Hand Heart Rate Monitor!");
-  Serial.println("What is your age so that we can calculate how your heart rate is compared to your age group?");
+  Serial.println("What is your age (in years) so that we can calculate how your heart rate is");
+  Serial.println("compared to your age group?");
  
 
 }
