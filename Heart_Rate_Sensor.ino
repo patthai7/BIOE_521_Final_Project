@@ -83,6 +83,7 @@ void setup() {
 
   Serial.println("Thank you for using the Pulse at the Palm of Your Hand Heart Rate Monitor!");
   Serial.println("Please place your finger in the oval-shaped hole on the LED light.");  
+  Serial.println("");  
   Serial.println("What is your age (in years) so that we can calculate how your heart rate is");
   Serial.println("compared to your age group?");
  
