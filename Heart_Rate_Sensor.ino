@@ -258,8 +258,15 @@ void loop() {
     Serial.print(heart_rate);
     Serial.println(" BPM");
 
-   // Display how the user's heart fitness level (based on their heart rate)
-   // compares with their age group
+  // Display how the user's heart fitness level (based on their heart rate)
+  // compares with their age group
+
+  // Source: Center for Disease Control and Prevention (CDC)
+  // Ostchega, Y. (2011). Resting pulse rate reference data for children, 
+  // adolescents, and adults: United States, 1999-2008 (No. 41). US Department
+  // of Health and Human Services, Centers for Disease Control and Prevention, 
+  // National Center for Health Statistics. 
+   
     if (age < 1) {
       if (heart_rate < 80 && heart_rate > 160) {
         Serial.println("Your heart's fitness level is considered abnormal for your age group!");
@@ -421,7 +428,6 @@ void loop() {
         Serial.println("Your heart's fitness level is considered below average for your age group!");
       }
     }
-
     
   }
 
