@@ -133,15 +133,21 @@ int moving_average(int measurement_value) {
 //LOOP-------------------------------------------------------
 void loop() {
 
+  // if the serial port does not have any input and if the
+  // age question has not yet been answered, then wait for the user
+  // to input their age
   if (Serial.available() > 0 && age_question_answered == false) {
 
     if (age_question_answered == false && age == 0) {
-
+      
+        // record the age inputted by the user
         age = Serial.parseInt();
+
+        // change the age_question_answered boolean to true
+        // to indicate that the question has been answered
         age_question_answered = true;
         Serial.print("The age (in years) you inputted is: ");
         Serial.println(age);
-        //Serial.println(age_question_answered);
     }
     
   }
