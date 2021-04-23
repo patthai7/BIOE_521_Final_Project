@@ -51,9 +51,10 @@ unsigned long time_after_derivative;
 // initialize the time counter for the heart rate calculation (milliseconds)
 float heart_rate_time_counter = 50;
 
-// initialize strings for the user input
-String age = "";
-String age_question_answer = "";
+// initialize age variables for the user input
+int age;
+String age_question_response;
+boolean age_question_answered;
 
 //SETUP------------------------------------------------------
 void setup() {
@@ -78,22 +79,6 @@ void setup() {
 
   // initialize the start time at the beginning
   start_time = millis();
-
-/*
-
-  while (age_question_answer == "") {
-    Serial.println("Thank you for using the Pulse at the Palm of Your Hand Heart Rate Monitor!");
-    Serial.println("Would you like to see how your heart rate is compared to your age group? (Y/N)");
-    while (Serial.available()) {
-      age_question_answer = Serial.readString();
-      if (age_question_answer == "Y") {
-        Serial.println("ok");
-      }
-    }
-  
-  }
-
-*/
 
 }
 
@@ -137,6 +122,28 @@ int moving_average(int measurement_value) {
 
 //LOOP-------------------------------------------------------
 void loop() {
+
+  if (Serial.available() > 0 && age_question_answered == false) {
+
+    if (age_question_answered == false) {
+     Serial.println("Thank you for using the Pulse at the Palm of Your Hand Heart Rate Monitor!");
+     Serial.println("Would you like to see how your heart rate is compared to your age group? (y/n)");
+    }
+    age_question_response = Serial.read();
+    Serial.println(age_question_response);
+    
+    if (age_question_response == "121") {
+      age_question_answered = true;
+      Serial.println(age_question_response);
+      Serial.println(age_question_answered);
+      }
+
+    Serial.println(age_question_answered);
+  }
+
+
+
+  if (age_question_answered == true) {
   
   // read the value from the light sensor on the Adafruit
   // Circuit Playground
@@ -296,5 +303,7 @@ void loop() {
   // light up the 7th NeoPixel with a black color (off)
   // to turn off the pulse LED when there is no pulse
   CircuitPlayground.setPixelColor(7, 0x000000);
-  
+
+  }
+
 }
