@@ -70,9 +70,6 @@ void setup() {
   // light up the 0th NeoPixel with a red color
   CircuitPlayground.setPixelColor(0, 0xFF0000);
 
-  // light up the 0th NeoPixel with a green color
-  // CircuitPlayground.setPixelColor(0, 0x00FF00);
-
   // initialize the start time at the beginning
   start_time = millis();
 
