@@ -152,6 +152,8 @@ void loop() {
     
   }
 
+  // if the age question has been answered and the user has inputted their
+  // age, then move forward with the heart rate calculations
   if (age_question_answered == true && age != 0) {
   
   // read the value from the light sensor on the Adafruit
