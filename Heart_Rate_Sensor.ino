@@ -134,19 +134,16 @@ void loop() {
   // age question has not yet been answered, then wait for the user
   // to input their age
   if (Serial.available() > 0 && age_question_answered == false) {
+  
+    // record the age inputted by the user
+    age = Serial.parseInt();
+  
+    // change the age_question_answered boolean to true
+    // to indicate that the question has been answered
+    age_question_answered = true;
+    Serial.print("The age (in years) you inputted is: ");
+    Serial.println(age);
 
-    if (age_question_answered == false && age == 0) {
-      
-        // record the age inputted by the user
-        age = Serial.parseInt();
-
-        // change the age_question_answered boolean to true
-        // to indicate that the question has been answered
-        age_question_answered = true;
-        Serial.print("The age (in years) you inputted is: ");
-        Serial.println(age);
-    }
-    
   }
 
   // if the age question has been answered and the user has inputted their
