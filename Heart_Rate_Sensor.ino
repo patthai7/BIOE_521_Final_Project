@@ -99,6 +99,9 @@ void setup() {
 
 int moving_average(int measurement_value) {
 
+  // Moving average filter technique adapted from:
+  // https://maker.pro/arduino/tutorial/how-to-clean-up-noisy-sensor-data-with-a-moving-average-filter
+
   // for each index, remove the oldest reading value to make 
   // room for a new reading value
   sum = sum - readings[index];
