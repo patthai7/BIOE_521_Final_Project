@@ -68,7 +68,10 @@ void setup() {
   CircuitPlayground.setBrightness(255);
 
   // light up the 0th NeoPixel with a red color
-  CircuitPlayground.setPixelColor(0, 0xFF0000);
+   CircuitPlayground.setPixelColor(0, 0xFF0000);
+
+  // light up the 0th NeoPixel with a green color
+  // CircuitPlayground.setPixelColor(0, 0x00FF00);
 
   // initialize the start time at the beginning
   start_time = millis();
@@ -104,23 +107,14 @@ int moving_average(int measurement_value) {
   // light sensor value
   readings[index] = measurement_value;
 
-  // Serial.print("Readings:");
-  // Serial.print(readings[index]);
-
   // add the newest measurement value to the sum of the
   // readings
   sum = sum + measurement_value;
-
-  // Serial.print("Sum:");
-  // Serial.print(sum);
 
   // go through the specified index values until it reaches 
   // the maximum index value, then go back to the first index
   // value of 0
   index = (index + 1)%num_readings;
-
-  // Serial.print("Index:");
-  // Serial.print(index);
 
   // take the average of the recorded readings
   averaged = sum/num_readings;
