@@ -58,11 +58,11 @@ boolean age_question_answered;
 //SETUP------------------------------------------------------
 void setup() {
 
-  // initialize the serial connection at 9600 bits per second
-  Serial.begin(9600);
-
   // initialize the circuit playground library
   CircuitPlayground.begin();
+
+  // initialize the serial connection at 9600 bits per second
+  Serial.begin(9600);
 
   // set the brightness of the circuit playground NeoPixels to the max (255)
   CircuitPlayground.setBrightness(255);
